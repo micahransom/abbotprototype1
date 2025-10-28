@@ -242,27 +242,28 @@ export default function ExperimentDetailPage() {
   
   // Table data for Cartridge - populated with existing data
   const [cartridgeRows, setCartridgeRows] = useState<TableRowData[]>([
-    { id: "cart-1", ingredients: [{ id: "14", label: "M_14 (DOM: 05.27.25)" }], concentration: "1", unit: "X", lotNumber: "" },
-    { id: "cart-2", ingredients: [{ id: "13", label: "Tris pH 8.0" }], concentration: "100", unit: "mM", lotNumber: "" },
-    { id: "cart-3", ingredients: [{ id: "6", label: "Brij-58" }], concentration: "0.05", unit: "%", lotNumber: "" },
-    { id: "cart-4", ingredients: [{ id: "7", label: "Proclin 950" }], concentration: "0.02", unit: "%", lotNumber: "" },
-    { id: "cart-5", ingredients: [{ id: "8", label: "dNTPs" }], concentration: "0.75", unit: "mM", lotNumber: "" },
-    { id: "cart-6", ingredients: [{ id: "9", label: "Dextran" }], concentration: "2.00", unit: "%", lotNumber: "" },
-    { id: "cart-7", ingredients: [{ id: "10", label: "KCl" }], concentration: "40", unit: "mM", lotNumber: "" },
-    { id: "cart-8", ingredients: [{ id: "11", label: "NaCl" }], concentration: "15", unit: "mM", lotNumber: "" },
-    { id: "cart-9", ingredients: [{ id: "15", label: "MDxRT 10% (0.25M NaCl)" }], concentration: "55", unit: "mM", lotNumber: "" },
-    { id: "cart-10", ingredients: [{ id: "16", label: "0% Gly- mTAQ1 (0.25M KCl)" }], concentration: "54.24", unit: "ng", lotNumber: "" },
-    { id: "cart-11", ingredients: [{ id: "12", label: "MgCl2" }], concentration: "160.00", unit: "ng", lotNumber: "" },
-    { id: "cart-12", ingredients: [], concentration: "", unit: "mM", lotNumber: "" },
+    { id: "cart-1", ingredients: [{ id: "strep-buffer", label: "Strep A Elution Buffer EH-9 0.1%" }], concentration: "2025.05.14", unit: "mM", lotNumber: "N/A" },
+    { id: "cart-2", ingredients: [{ id: "pbs", label: "PBS" }], concentration: "206698", unit: "mM", lotNumber: "20250527" },
+    { id: "cart-3", ingredients: [{ id: "strep-cells", label: "Strep A Cells F811 1E+04 cps/uL (50uL)" }], concentration: "ATCC19615", unit: "mM", lotNumber: "20250527" },
+    { id: "cart-4", ingredients: [], concentration: "", unit: "mM", lotNumber: "" },
   ]);
 
   // Table data for Sample Prep - populated with existing data
   const [samplePrepRows, setSamplePrepRows] = useState<TableRowData[]>([
-    { id: "prep-1", ingredients: [{ id: "17", label: "Inactivated Influenza" }], concentration: "1e4", unit: "mM", lotNumber: "" },
-    { id: "prep-2", ingredients: [{ id: "18", label: "Inactivated RSV A2" }], concentration: "1e4", unit: "mM", lotNumber: "" },
-    { id: "prep-3", ingredients: [{ id: "19", label: "Inactivated RSV B Strain 9320" }], concentration: "1e4", unit: "mM", lotNumber: "" },
-    { id: "prep-4", ingredients: [{ id: "20", label: "Inactivated Influenza B" }], concentration: "1e4", unit: "mM", lotNumber: "" },
-    { id: "prep-5", ingredients: [], concentration: "", unit: "mM", lotNumber: "" },
+    { id: "prep-1", ingredients: [{ id: "water", label: "Water" }], concentration: "", unit: "mM", lotNumber: "" },
+    { id: "prep-2", ingredients: [{ id: "13", label: "Tris pH 8.0" }], concentration: "250", unit: "mM", lotNumber: "" },
+    { id: "prep-3", ingredients: [{ id: "6", label: "Brij-58" }], concentration: "0.13", unit: "%", lotNumber: "" },
+    { id: "prep-4", ingredients: [{ id: "7", label: "Proclin950" }], concentration: "0.05", unit: "%", lotNumber: "" },
+    { id: "prep-5", ingredients: [{ id: "8", label: "dNTPs" }], concentration: "1.88", unit: "mM", lotNumber: "" },
+    { id: "prep-6", ingredients: [{ id: "9", label: "Dextran" }], concentration: "5.00", unit: "%", lotNumber: "" },
+    { id: "prep-7", ingredients: [{ id: "trehalose", label: "Trehalose" }], concentration: "100", unit: "mM", lotNumber: "" },
+    { id: "prep-8", ingredients: [{ id: "10", label: "KCl" }], concentration: "38", unit: "mM", lotNumber: "" },
+    { id: "prep-9", ingredients: [{ id: "11", label: "NaCl" }], concentration: "137.5", unit: "mM", lotNumber: "" },
+    { id: "prep-10", ingredients: [{ id: "15", label: "MDxRT 10% (0.25M NaCl)" }], concentration: "54.24", unit: "ng", lotNumber: "" },
+    { id: "prep-11", ingredients: [{ id: "16", label: "0% Gly- mTAQ1 (0.25M KCl)" }], concentration: "160.0", unit: "ng", lotNumber: "" },
+    { id: "prep-12", ingredients: [{ id: "12", label: "MgCl2" }], concentration: "19.3", unit: "mM", lotNumber: "" },
+    { id: "prep-13", ingredients: [{ id: "ppp-mix", label: "12x Primer-Probe Mix" }], concentration: "2.5", unit: "X", lotNumber: "" },
+    { id: "prep-14", ingredients: [], concentration: "", unit: "mM", lotNumber: "" },
   ]);
 
   // Track which unit dropdown is open
@@ -420,7 +421,7 @@ export default function ExperimentDetailPage() {
             Experiments
           </Link>
           <span className="text-muted-foreground">/</span>
-          <span className="text-foreground break-words">20250512_MV_STI_PrimerScreening_SYBR_Tv_Set1-28_mTAQ2</span>
+          <span className="text-foreground break-words">20250814_NEAR.XML.Evaluation_CR</span>
         </div>
       </div>
 
@@ -540,12 +541,21 @@ export default function ExperimentDetailPage() {
             <div className="flex items-center">
               <div className="flex-1 overflow-clip px-px">
                 <div className="flex items-center justify-between">
-                  <div className="flex flex-col gap-1 w-[150px]">
+                  <div className="flex flex-col gap-1 w-[180px]">
                     <div className="flex items-center py-2">
                       <p className="text-base text-muted-foreground">Instrument</p>
                     </div>
                     <div className="flex items-center py-2">
                       <p className="text-base text-muted-foreground">Operators</p>
+                    </div>
+                    <div className="flex items-center py-2">
+                      <p className="text-base text-muted-foreground">Cartridge LN</p>
+                    </div>
+                    <div className="flex items-center py-2">
+                      <p className="text-base text-muted-foreground">Buffer Pack</p>
+                    </div>
+                    <div className="flex items-center py-2">
+                      <p className="text-base text-muted-foreground">Lyo Composition</p>
                     </div>
                   </div>
                   <div className="flex-1 flex flex-col gap-1">
@@ -556,25 +566,34 @@ export default function ExperimentDetailPage() {
                       <Badge variant="outline" className="bg-slate-100 border-slate-300">Minh V</Badge>
                       <Badge variant="outline" className="bg-slate-100 border-slate-300">Zhixia L</Badge>
                     </div>
+                    <div className="flex items-center gap-2 h-10 p-2 min-w-[85px]">
+                      <Badge variant="outline" className="bg-slate-100 border-slate-300">251975</Badge>
+                    </div>
+                    <div className="flex items-center gap-2 h-10 p-2 min-w-[85px]">
+                      <Badge variant="outline" className="bg-slate-100 border-slate-300">StrepA EB 2025.06.02 (EH-9) (R1,R3)</Badge>
+                    </div>
+                    <div className="flex items-center gap-2 h-10 p-2 min-w-[85px]">
+                      <Badge variant="outline" className="bg-slate-100 border-slate-300">NEAR 2025.06.23 (10uL std Strep A + 30K mod. IC1</Badge>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Cartridge Section */}
+          {/* Materials Section */}
           <div className="flex flex-col gap-6">
             <div className="flex items-center justify-between h-10">
-              <h3 className="text-2xl font-semibold text-foreground pt-2">Cartridge</h3>
+              <h3 className="text-2xl font-semibold text-foreground pt-2">Materials</h3>
             </div>
 
-            <div className="bg-white border rounded-lg w-full">
+            <div className="bg-white border rounded-lg w-full overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-[280px]">Ingredient Name</TableHead>
-                    <TableHead className="w-[240px]">Final Concentration</TableHead>
-                    <TableHead className="w-[200px]">Lot Number (optional)</TableHead>
+                    <TableHead className="min-w-[280px]">Ingredient Name</TableHead>
+                    <TableHead className="min-w-[240px]">LN#</TableHead>
+                    <TableHead className="min-w-[200px]">Aliquot</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -590,120 +609,20 @@ export default function ExperimentDetailPage() {
                         />
                       </TableCell>
                       <TableCell className="w-[240px] align-top">
-                        <div className="flex items-center justify-between gap-2 py-0.5">
-                          <input
-                            type="text"
-                            value={row.concentration}
-                            onChange={(e) => updateRowConcentration('cartridge', row.id, e.target.value)}
-                            placeholder="0"
-                            className="flex-1 min-w-0 text-sm text-foreground bg-transparent border-none outline-none focus:outline-none"
-                          />
-                          <div className="relative">
-                            <button
-                              onClick={() => setOpenUnitDropdown(openUnitDropdown === row.id ? null : row.id)}
-                              className="flex items-center gap-1 px-2 py-0.5 text-xs font-semibold text-secondary-foreground bg-secondary border border-transparent rounded-md hover:bg-secondary/80 transition-colors"
-                            >
-                              {row.unit}
-                              <ChevronDown className="w-3 h-3" />
-                            </button>
-                            {openUnitDropdown === row.id && (
-                              <div className="absolute right-0 top-full mt-1 z-10 min-w-[80px] bg-popover border border-border rounded-md shadow-md overflow-hidden">
-                                {concentrationUnits.map((unit) => (
-                                  <button
-                                    key={unit}
-                                    onClick={() => updateRowUnit('cartridge', row.id, unit)}
-                                    className="w-full px-3 py-2 text-xs text-left hover:bg-accent hover:text-accent-foreground transition-colors"
-                                  >
-                                    {unit}
-                                  </button>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        </div>
+                        <input
+                          type="text"
+                          value={row.concentration}
+                          onChange={(e) => updateRowConcentration('cartridge', row.id, e.target.value)}
+                          placeholder=""
+                          className="w-full text-sm text-foreground bg-transparent border-none outline-none focus:outline-none py-0.5"
+                        />
                       </TableCell>
                       <TableCell className="w-[200px] align-top">
                         <input
                           type="text"
                           value={row.lotNumber}
                           onChange={(e) => updateRowLotNumber('cartridge', row.id, e.target.value)}
-                          placeholder="Optional..."
-                          className="w-full text-sm text-foreground bg-transparent border-none outline-none focus:outline-none py-0.5"
-                        />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-          </div>
-
-          {/* Sample Prep Section */}
-          <div className="flex flex-col gap-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-2xl font-semibold text-foreground pt-2">Sample Prep</h3>
-            </div>
-
-            <div className="bg-white border rounded-lg w-full">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[280px]">Ingredient Name</TableHead>
-                    <TableHead className="w-[240px]">Final Concentration</TableHead>
-                    <TableHead className="w-[200px]">Lot Number (optional)</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {samplePrepRows.map((row) => (
-                    <TableRow key={row.id}>
-                      <TableCell className="w-[280px] align-top">
-                        <TagInput
-                          suggestions={ingredientSuggestions}
-                          selectedTags={row.ingredients}
-                          onTagsChange={(tags) => updateRowIngredients('samplePrep', row.id, tags)}
-                          placeholder="Type ingredient..."
-                          allowCreate={true}
-                        />
-                      </TableCell>
-                      <TableCell className="w-[240px] align-top">
-                        <div className="flex items-center justify-between gap-2 py-0.5">
-                          <input
-                            type="text"
-                            value={row.concentration}
-                            onChange={(e) => updateRowConcentration('samplePrep', row.id, e.target.value)}
-                            placeholder="0"
-                            className="flex-1 min-w-0 text-sm text-foreground bg-transparent border-none outline-none focus:outline-none"
-                          />
-                          <div className="relative">
-                            <button
-                              onClick={() => setOpenUnitDropdown(openUnitDropdown === row.id ? null : row.id)}
-                              className="flex items-center gap-1 px-2 py-0.5 text-xs font-semibold text-secondary-foreground bg-secondary border border-transparent rounded-md hover:bg-secondary/80 transition-colors"
-                            >
-                              {row.unit}
-                              <ChevronDown className="w-3 h-3" />
-                            </button>
-                            {openUnitDropdown === row.id && (
-                              <div className="absolute right-0 top-full mt-1 z-10 min-w-[80px] bg-popover border border-border rounded-md shadow-md overflow-hidden">
-                                {concentrationUnits.map((unit) => (
-                                  <button
-                                    key={unit}
-                                    onClick={() => updateRowUnit('samplePrep', row.id, unit)}
-                                    className="w-full px-3 py-2 text-xs text-left hover:bg-accent hover:text-accent-foreground transition-colors"
-                                  >
-                                    {unit}
-                                  </button>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell className="w-[200px] align-top">
-                        <input
-                          type="text"
-                          value={row.lotNumber}
-                          onChange={(e) => updateRowLotNumber('samplePrep', row.id, e.target.value)}
-                          placeholder="Optional..."
+                          placeholder=""
                           className="w-full text-sm text-foreground bg-transparent border-none outline-none focus:outline-none py-0.5"
                         />
                       </TableCell>
@@ -718,17 +637,21 @@ export default function ExperimentDetailPage() {
           <div className="flex flex-col gap-6">
             <div className="flex items-center justify-between">
               <h3 className="text-2xl font-semibold text-foreground pt-2">Attachments</h3>
-              <Button variant="outline" size="sm">
-                Upload
-              </Button>
+              <Tooltip content="Not Yet Built" side="bottom">
+                <Button variant="outline" size="sm">
+                  Upload
+                </Button>
+              </Tooltip>
             </div>
 
             <div className="flex gap-2">
               <Card className="w-[260px] relative overflow-hidden">
                 <div className="bg-gray-300 border-b h-[200px]" />
-                <Button variant="outline" size="sm" className="absolute top-2 right-2">
-                  <Download className="w-4 h-4" />
-                </Button>
+                <Tooltip content="Not Yet Built" side="bottom">
+                  <Button variant="outline" size="sm" className="absolute top-2 right-2">
+                    <Download className="w-4 h-4" />
+                  </Button>
+                </Tooltip>
                 <CardHeader className="px-6 py-0 pt-6">
                   <CardTitle className="text-base font-semibold">file</CardTitle>
                   <CardDescription className="text-sm">120 MB</CardDescription>
@@ -739,9 +662,11 @@ export default function ExperimentDetailPage() {
 
               <Card className="w-[260px] relative overflow-hidden">
                 <div className="bg-gray-300 border-b h-[200px]" />
-                <Button variant="outline" size="sm" className="absolute top-2 right-2">
-                  <Download className="w-4 h-4" />
-                </Button>
+                <Tooltip content="Not Yet Built" side="bottom">
+                  <Button variant="outline" size="sm" className="absolute top-2 right-2">
+                    <Download className="w-4 h-4" />
+                  </Button>
+                </Tooltip>
                 <CardHeader className="px-6 py-0 pt-6">
                   <CardTitle className="text-base font-semibold">file</CardTitle>
                   <CardDescription className="text-sm">120 MB</CardDescription>
@@ -771,10 +696,12 @@ export default function ExperimentDetailPage() {
           <div className="w-full px-8 flex flex-col gap-8">
             {/* Action Buttons */}
             <div className="flex items-center justify-between w-full">
-              <Button variant="outline" size="sm">
-                <Download className="w-4 h-4 mr-2" />
-                Download
-              </Button>
+              <Tooltip content="Not Yet Built" side="bottom">
+                <Button variant="outline" size="sm">
+                  <Download className="w-4 h-4 mr-2" />
+                  Download
+                </Button>
+              </Tooltip>
             </div>
 
             {/* Test Tracking Table */}
@@ -782,84 +709,331 @@ export default function ExperimentDetailPage() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-accent">
-                    <TableHead className="text-center font-medium text-foreground">Test Date</TableHead>
-                    <TableHead className="text-center font-medium text-foreground">Sample ID</TableHead>
-                    <TableHead className="text-center font-medium text-foreground">Sample Description</TableHead>
-                    <TableHead className="text-center font-medium text-foreground">Cartridge Lot #</TableHead>
-                    <TableHead className="text-center font-medium text-foreground">PCR MM Lyo Lot #</TableHead>
-                    <TableHead className="text-center font-medium text-foreground">IC Lot #</TableHead>
-                    <TableHead className="text-center font-medium text-foreground">XML</TableHead>
-                    <TableHead className="text-center font-medium text-foreground">Pass through filter</TableHead>
-                    <TableHead className="text-center font-medium text-foreground">Load Volume (uL)</TableHead>
-                    <TableHead className="text-center font-medium text-foreground">Instrument Serial #</TableHead>
-                    <TableHead className="text-center font-medium text-foreground">Target Amount</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[100px]">Test Date</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[80px]">Samples</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[160px]">Sample ID</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[150px]">Sample Description</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[120px]">Cartridge Type</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[200px]">Cartridge Lot #</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[160px]">PCR MM Lyo Lot #</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[200px]">IC Lot #</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[160px]">XML</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[150px]">Pass through filter</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[140px]">Load Volume (ul)</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[160px]">Instrument Serial #</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[220px]">Target (cps in (SP) 500uL sample input or (PD) 20uL PCR</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[180px]">IC (lyo'd)</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[140px]">cRNA</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[140px]">Target Matrix</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[110px]">Operator</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[150px]">COVID (Orange560)</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[130px]">FluA (FAM)</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[130px]">IC ATTO490</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[160px]">FluB (Quasar 670)</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[130px]">RSV (Red610)</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[300px]">Note</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell className="text-center">8/11/25</TableCell>
+                    <TableCell className="text-center text-sm">8/11/25</TableCell>
+                    <TableCell className="text-center text-sm">1</TableCell>
                     <TableCell><Badge variant="outline">5000Virus.DEG.1</Badge></TableCell>
                     <TableCell className="text-center text-sm">Virus in UTM</TableCell>
-                    <TableCell><Badge variant="outline">251907</Badge></TableCell>
-                    <TableCell><Badge variant="outline">06.23.25 Mix 1</Badge></TableCell>
-                    <TableCell><Badge variant="outline">025.08.08 with Sigma CRNA</Badge></TableCell>
-                    <TableCell><Badge variant="outline">G005_wPCR_005V2</Badge></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell className="text-center text-sm">251907 - Mix 1<br/>(Swapped in SP buffer)</TableCell>
+                    <TableCell className="text-center text-sm">06.23.25 Mix 1</TableCell>
+                    <TableCell className="text-center text-sm">2025.08.08 with Sigma cRNA</TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">G005_wPCR_005V2</Badge></TableCell>
                     <TableCell><Badge variant="outline">Porex</Badge></TableCell>
                     <TableCell className="text-center text-sm">500.00</TableCell>
-                    <TableCell><Badge variant="outline">15894</Badge></TableCell>
-                    <TableCell><Badge variant="outline">TV_P1</Badge></TableCell>
+                    <TableCell className="text-center text-sm">15894</TableCell>
+                    <TableCell><Badge variant="outline">5K</Badge></TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">50k aRNA, sigma cRNA</Badge></TableCell>
+                    <TableCell><Badge variant="outline">Sigma Lyo'd</Badge></TableCell>
+                    <TableCell><Badge variant="outline">UTM</Badge></TableCell>
+                    <TableCell><Badge variant="outline">CRL</Badge></TableCell>
+                    <TableCell className="text-center text-sm">39.4</TableCell>
+                    <TableCell className="text-center text-sm">38.9</TableCell>
+                    <TableCell className="text-center text-sm">-</TableCell>
+                    <TableCell className="text-center text-sm">-</TableCell>
+                    <TableCell className="text-center text-sm">38.6</TableCell>
+                    <TableCell className="min-w-[300px]"></TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell className="text-center">8/11/25</TableCell>
+                    <TableCell className="text-center text-sm">8/11/25</TableCell>
+                    <TableCell className="text-center text-sm">2</TableCell>
                     <TableCell><Badge variant="outline">5000Virus.DEG.2</Badge></TableCell>
                     <TableCell className="text-center text-sm">Virus in UTM</TableCell>
-                    <TableCell><Badge variant="outline">251907</Badge></TableCell>
-                    <TableCell><Badge variant="outline">06.23.25 Mix 1</Badge></TableCell>
-                    <TableCell><Badge variant="outline">025.08.08 with Sigma CRNA</Badge></TableCell>
-                    <TableCell><Badge variant="outline">G005_wPCR_005V2</Badge></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell className="text-center text-sm">251907 - Mix 1<br/>(Swapped in SP buffer)</TableCell>
+                    <TableCell className="text-center text-sm">06.23.25 Mix 1</TableCell>
+                    <TableCell className="text-center text-sm">2025.08.08 with Sigma cRNA</TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">G005_wPCR_005V2</Badge></TableCell>
                     <TableCell><Badge variant="outline">Porex</Badge></TableCell>
                     <TableCell className="text-center text-sm">500.00</TableCell>
-                    <TableCell><Badge variant="outline">15896</Badge></TableCell>
-                    <TableCell><Badge variant="outline">TV_P2</Badge></TableCell>
+                    <TableCell className="text-center text-sm">15896</TableCell>
+                    <TableCell><Badge variant="outline">5K</Badge></TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">50k aRNA, sigma cRNA</Badge></TableCell>
+                    <TableCell><Badge variant="outline">Sigma Lyo'd</Badge></TableCell>
+                    <TableCell><Badge variant="outline">UTM</Badge></TableCell>
+                    <TableCell><Badge variant="outline">CRL</Badge></TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="min-w-[300px]"></TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell className="text-center">8/11/25</TableCell>
-                    <TableCell><Badge variant="outline">5000Virus.ETOH.2</Badge></TableCell>
+                    <TableCell className="text-center text-sm">8/11/25</TableCell>
+                    <TableCell className="text-center text-sm">3</TableCell>
+                    <TableCell><Badge variant="outline">5000Virus.EtOH.1</Badge></TableCell>
                     <TableCell className="text-center text-sm">Virus in UTM</TableCell>
-                    <TableCell><Badge variant="outline">251907</Badge></TableCell>
-                    <TableCell><Badge variant="outline">06.23.25 Mix 1</Badge></TableCell>
-                    <TableCell><Badge variant="outline">025.08.08 with Sigma CRNA</Badge></TableCell>
-                    <TableCell><Badge variant="outline">G005_wPCR_005V2</Badge></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell className="text-center text-sm">251907 - Mix 1<br/>(Swapped in SP buffer)</TableCell>
+                    <TableCell className="text-center text-sm">06.23.25 Mix 1</TableCell>
+                    <TableCell className="text-center text-sm">2025.08.08 with Sigma cRNA</TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">G005_wPCR_005V2</Badge></TableCell>
                     <TableCell><Badge variant="outline">Porex</Badge></TableCell>
                     <TableCell className="text-center text-sm">500.00</TableCell>
-                    <TableCell><Badge variant="outline">15892</Badge></TableCell>
-                    <TableCell><Badge variant="outline">TV_P3</Badge></TableCell>
+                    <TableCell className="text-center text-sm">15892</TableCell>
+                    <TableCell><Badge variant="outline">5K</Badge></TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">50k aRNA, sigma cRNA</Badge></TableCell>
+                    <TableCell><Badge variant="outline">Sigma Lyo'd</Badge></TableCell>
+                    <TableCell><Badge variant="outline">UTM</Badge></TableCell>
+                    <TableCell><Badge variant="outline">CRL</Badge></TableCell>
+                    <TableCell className="text-center text-sm">-</TableCell>
+                    <TableCell className="text-center text-sm">-</TableCell>
+                    <TableCell className="text-center text-sm">-</TableCell>
+                    <TableCell className="text-center text-sm">-</TableCell>
+                    <TableCell className="text-center text-sm">50.0</TableCell>
+                    <TableCell className="min-w-[300px]"></TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell className="text-center">8/11/25</TableCell>
+                    <TableCell className="text-center text-sm">8/11/25</TableCell>
+                    <TableCell className="text-center text-sm">4</TableCell>
+                    <TableCell><Badge variant="outline">5000Virus.EtOH.2</Badge></TableCell>
+                    <TableCell className="text-center text-sm">Virus in UTM</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell className="text-center text-sm">251907 - Mix 1<br/>(Swapped in SP buffer)</TableCell>
+                    <TableCell className="text-center text-sm">06.23.25 Mix 1</TableCell>
+                    <TableCell className="text-center text-sm">2025.08.08 with Sigma cRNA</TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">G005_wPCR_005V2</Badge></TableCell>
+                    <TableCell><Badge variant="outline">Porex</Badge></TableCell>
+                    <TableCell className="text-center text-sm">500.00</TableCell>
+                    <TableCell className="text-center text-sm">15874</TableCell>
+                    <TableCell><Badge variant="outline">5K</Badge></TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">50k aRNA, sigma cRNA</Badge></TableCell>
+                    <TableCell><Badge variant="outline">Sigma Lyo'd</Badge></TableCell>
+                    <TableCell><Badge variant="outline">UTM</Badge></TableCell>
+                    <TableCell><Badge variant="outline">CRL</Badge></TableCell>
+                    <TableCell className="text-center text-sm">40.0</TableCell>
+                    <TableCell className="text-center text-sm">-</TableCell>
+                    <TableCell className="text-center text-sm">-</TableCell>
+                    <TableCell className="text-center text-sm">-</TableCell>
+                    <TableCell className="text-center text-sm">38.1</TableCell>
+                    <TableCell className="min-w-[300px]"></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="text-center text-sm">8/11/25</TableCell>
+                    <TableCell className="text-center text-sm">5</TableCell>
                     <TableCell><Badge variant="outline">1000Virus.DEG.1</Badge></TableCell>
                     <TableCell className="text-center text-sm">Virus in UTM</TableCell>
-                    <TableCell><Badge variant="outline">251907</Badge></TableCell>
-                    <TableCell><Badge variant="outline">06.23.25 Mix 1</Badge></TableCell>
-                    <TableCell><Badge variant="outline">025.08.08 with Sigma CRNA</Badge></TableCell>
-                    <TableCell><Badge variant="outline">G005_wPCR_005V2</Badge></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell className="text-center text-sm">251907 - Mix 1<br/>(Swapped in SP buffer)</TableCell>
+                    <TableCell className="text-center text-sm">06.23.25 Mix 1</TableCell>
+                    <TableCell className="text-center text-sm">2025.08.08 with Sigma cRNA</TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">G005_wPCR_005V2</Badge></TableCell>
                     <TableCell><Badge variant="outline">Porex</Badge></TableCell>
                     <TableCell className="text-center text-sm">500.00</TableCell>
-                    <TableCell><Badge variant="outline">15891</Badge></TableCell>
-                    <TableCell><Badge variant="outline">TV_P4</Badge></TableCell>
+                    <TableCell className="text-center text-sm">15883</TableCell>
+                    <TableCell><Badge variant="outline">1K</Badge></TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">50k aRNA, sigma cRNA</Badge></TableCell>
+                    <TableCell><Badge variant="outline">Sigma Lyo'd</Badge></TableCell>
+                    <TableCell><Badge variant="outline">UTM</Badge></TableCell>
+                    <TableCell><Badge variant="outline">CRL</Badge></TableCell>
+                    <TableCell className="text-center text-sm">40.5</TableCell>
+                    <TableCell className="text-center text-sm">-</TableCell>
+                    <TableCell className="text-center text-sm">-</TableCell>
+                    <TableCell className="text-center text-sm">-</TableCell>
+                    <TableCell className="text-center text-sm">41.3</TableCell>
+                    <TableCell className="min-w-[300px]"></TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell className="text-center">8/11/25</TableCell>
+                    <TableCell className="text-center text-sm">8/11/25</TableCell>
+                    <TableCell className="text-center text-sm">6</TableCell>
                     <TableCell><Badge variant="outline">1000Virus.DEG.2</Badge></TableCell>
                     <TableCell className="text-center text-sm">Virus in UTM</TableCell>
-                    <TableCell><Badge variant="outline">251907</Badge></TableCell>
-                    <TableCell><Badge variant="outline">06.23.25 Mix 1</Badge></TableCell>
-                    <TableCell><Badge variant="outline">025.08.08 with Sigma CRNA</Badge></TableCell>
-                    <TableCell><Badge variant="outline">G005_wPCR_005V2</Badge></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell className="text-center text-sm">251907 - Mix 1<br/>(Swapped in SP buffer)</TableCell>
+                    <TableCell className="text-center text-sm">06.23.25 Mix 1</TableCell>
+                    <TableCell className="text-center text-sm">2025.08.08 with Sigma cRNA</TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">G005_wPCR_005V2</Badge></TableCell>
                     <TableCell><Badge variant="outline">Porex</Badge></TableCell>
                     <TableCell className="text-center text-sm">500.00</TableCell>
-                    <TableCell><Badge variant="outline">15898</Badge></TableCell>
-                    <TableCell><Badge variant="outline">TV_P5</Badge></TableCell>
+                    <TableCell className="text-center text-sm">15882</TableCell>
+                    <TableCell><Badge variant="outline">1K</Badge></TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">50k aRNA, sigma cRNA</Badge></TableCell>
+                    <TableCell><Badge variant="outline">Sigma Lyo'd</Badge></TableCell>
+                    <TableCell><Badge variant="outline">UTM</Badge></TableCell>
+                    <TableCell><Badge variant="outline">CRL</Badge></TableCell>
+                    <TableCell className="text-center text-sm">40.3</TableCell>
+                    <TableCell className="text-center text-sm">46.4</TableCell>
+                    <TableCell className="text-center text-sm">-</TableCell>
+                    <TableCell className="text-center text-sm">-</TableCell>
+                    <TableCell className="text-center text-sm">43.9</TableCell>
+                    <TableCell className="min-w-[300px]"></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="text-center text-sm">8/11/25</TableCell>
+                    <TableCell className="text-center text-sm">7</TableCell>
+                    <TableCell><Badge variant="outline">1000Virus.EtOH.1</Badge></TableCell>
+                    <TableCell className="text-center text-sm">Virus in UTM</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell className="text-center text-sm">251907 - Mix 1<br/>(Swapped in SP buffer)</TableCell>
+                    <TableCell className="text-center text-sm">06.23.25 Mix 1</TableCell>
+                    <TableCell className="text-center text-sm">2025.08.08 with Sigma cRNA</TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">G005_wPCR_005V2</Badge></TableCell>
+                    <TableCell><Badge variant="outline">Porex</Badge></TableCell>
+                    <TableCell className="text-center text-sm">500.00</TableCell>
+                    <TableCell className="text-center text-sm">15891</TableCell>
+                    <TableCell><Badge variant="outline">1K</Badge></TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">50k aRNA, sigma cRNA</Badge></TableCell>
+                    <TableCell><Badge variant="outline">Sigma Lyo'd</Badge></TableCell>
+                    <TableCell><Badge variant="outline">UTM</Badge></TableCell>
+                    <TableCell><Badge variant="outline">CRL</Badge></TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="min-w-[300px]"></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="text-center text-sm">8/11/25</TableCell>
+                    <TableCell className="text-center text-sm">8</TableCell>
+                    <TableCell><Badge variant="outline">1000Virus.EtOH.2</Badge></TableCell>
+                    <TableCell className="text-center text-sm">Virus in UTM</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell className="text-center text-sm">251907 - Mix 1<br/>(Swapped in SP buffer)</TableCell>
+                    <TableCell className="text-center text-sm">06.23.25 Mix 1</TableCell>
+                    <TableCell className="text-center text-sm">2025.08.08 with Sigma cRNA</TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">G005_wPCR_005V2</Badge></TableCell>
+                    <TableCell><Badge variant="outline">Porex</Badge></TableCell>
+                    <TableCell className="text-center text-sm">500.00</TableCell>
+                    <TableCell className="text-center text-sm">15895</TableCell>
+                    <TableCell><Badge variant="outline">1K</Badge></TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">50k aRNA, sigma cRNA</Badge></TableCell>
+                    <TableCell><Badge variant="outline">Sigma Lyo'd</Badge></TableCell>
+                    <TableCell><Badge variant="outline">UTM</Badge></TableCell>
+                    <TableCell><Badge variant="outline">CRL</Badge></TableCell>
+                    <TableCell className="text-center text-sm">44.5</TableCell>
+                    <TableCell className="text-center text-sm">-</TableCell>
+                    <TableCell className="text-center text-sm">-</TableCell>
+                    <TableCell className="text-center text-sm">-</TableCell>
+                    <TableCell className="text-center text-sm">44.2</TableCell>
+                    <TableCell className="min-w-[300px]"></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="text-center text-sm">8/11/25</TableCell>
+                    <TableCell className="text-center text-sm">9</TableCell>
+                    <TableCell><Badge variant="outline">250Virus.DEG.1</Badge></TableCell>
+                    <TableCell className="text-center text-sm">Virus in UTM</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell className="text-center text-sm">251907 - Mix 1<br/>(Swapped in SP buffer)</TableCell>
+                    <TableCell className="text-center text-sm">06.23.25 Mix 1</TableCell>
+                    <TableCell className="text-center text-sm">2025.08.08 with Sigma cRNA</TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">G005_wPCR_005V2</Badge></TableCell>
+                    <TableCell><Badge variant="outline">Porex</Badge></TableCell>
+                    <TableCell className="text-center text-sm">500.00</TableCell>
+                    <TableCell className="text-center text-sm">15872</TableCell>
+                    <TableCell><Badge variant="outline">250</Badge></TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">50k aRNA, sigma cRNA</Badge></TableCell>
+                    <TableCell><Badge variant="outline">Sigma Lyo'd</Badge></TableCell>
+                    <TableCell><Badge variant="outline">UTM</Badge></TableCell>
+                    <TableCell><Badge variant="outline">CRL</Badge></TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="min-w-[300px]"></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="text-center text-sm">8/11/25</TableCell>
+                    <TableCell className="text-center text-sm">10</TableCell>
+                    <TableCell><Badge variant="outline">250Virus.DEG.2</Badge></TableCell>
+                    <TableCell className="text-center text-sm">Virus in UTM</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell className="text-center text-sm">251907 - Mix 1<br/>(Swapped in SP buffer)</TableCell>
+                    <TableCell className="text-center text-sm">06.23.25 Mix 1</TableCell>
+                    <TableCell className="text-center text-sm">2025.08.08 with Sigma cRNA</TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">G005_wPCR_005V2</Badge></TableCell>
+                    <TableCell><Badge variant="outline">Porex</Badge></TableCell>
+                    <TableCell className="text-center text-sm">500.00</TableCell>
+                    <TableCell className="text-center text-sm">15887</TableCell>
+                    <TableCell><Badge variant="outline">250</Badge></TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">50k aRNA, sigma cRNA</Badge></TableCell>
+                    <TableCell><Badge variant="outline">Sigma Lyo'd</Badge></TableCell>
+                    <TableCell><Badge variant="outline">UTM</Badge></TableCell>
+                    <TableCell><Badge variant="outline">CRL</Badge></TableCell>
+                    <TableCell className="text-center text-sm"></TableCell>
+                    <TableCell className="text-center text-sm"></TableCell>
+                    <TableCell className="text-center text-sm"></TableCell>
+                    <TableCell className="text-center text-sm"></TableCell>
+                    <TableCell className="text-center text-sm"></TableCell>
+                    <TableCell className="min-w-[300px]"></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="text-center text-sm">8/11/25</TableCell>
+                    <TableCell className="text-center text-sm">11</TableCell>
+                    <TableCell><Badge variant="outline">250Virus.EtOH.1</Badge></TableCell>
+                    <TableCell className="text-center text-sm">Virus in UTM</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell className="text-center text-sm">251907 - Mix 1<br/>(Swapped in SP buffer)</TableCell>
+                    <TableCell className="text-center text-sm">06.23.25 Mix 1</TableCell>
+                    <TableCell className="text-center text-sm">2025.08.08 with Sigma cRNA</TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">G005_wPCR_005V2</Badge></TableCell>
+                    <TableCell><Badge variant="outline">Porex</Badge></TableCell>
+                    <TableCell className="text-center text-sm">500.00</TableCell>
+                    <TableCell className="text-center text-sm">15899</TableCell>
+                    <TableCell><Badge variant="outline">250</Badge></TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">50k aRNA, sigma cRNA</Badge></TableCell>
+                    <TableCell><Badge variant="outline">Sigma Lyo'd</Badge></TableCell>
+                    <TableCell><Badge variant="outline">UTM</Badge></TableCell>
+                    <TableCell><Badge variant="outline">CRL</Badge></TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="min-w-[300px]"></TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="text-center text-sm">8/11/25</TableCell>
+                    <TableCell className="text-center text-sm">12</TableCell>
+                    <TableCell><Badge variant="outline">250Virus.EtOH.2</Badge></TableCell>
+                    <TableCell className="text-center text-sm">Virus in UTM</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell className="text-center text-sm">251907 - Mix 1<br/>(Swapped in SP buffer)</TableCell>
+                    <TableCell className="text-center text-sm">06.23.25 Mix 1</TableCell>
+                    <TableCell className="text-center text-sm">2025.08.08 with Sigma cRNA</TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">G005_wPCR_005V2</Badge></TableCell>
+                    <TableCell><Badge variant="outline">Porex</Badge></TableCell>
+                    <TableCell className="text-center text-sm">500.00</TableCell>
+                    <TableCell className="text-center text-sm">15873</TableCell>
+                    <TableCell><Badge variant="outline">250</Badge></TableCell>
+                    <TableCell><Badge variant="outline" className="text-red-600 border-red-600">50k aRNA, sigma cRNA</Badge></TableCell>
+                    <TableCell><Badge variant="outline">Sigma Lyo'd</Badge></TableCell>
+                    <TableCell><Badge variant="outline">UTM</Badge></TableCell>
+                    <TableCell><Badge variant="outline">CRL</Badge></TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="text-center text-sm">inv</TableCell>
+                    <TableCell className="min-w-[300px]"></TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell></TableCell>
@@ -873,6 +1047,18 @@ export default function ExperimentDetailPage() {
                     <TableCell></TableCell>
                     <TableCell></TableCell>
                     <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell className="min-w-[300px]"></TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
@@ -882,9 +1068,11 @@ export default function ExperimentDetailPage() {
             <div className="flex flex-col gap-6 mt-8">
               <div className="flex items-center justify-between">
                 <h3 className="text-2xl font-semibold text-foreground pt-2">Files</h3>
-                <Button variant="outline" size="sm">
-                  Upload
-                </Button>
+                <Tooltip content="Not Yet Built" side="bottom">
+                  <Button variant="outline" size="sm">
+                    Upload
+                  </Button>
+                </Tooltip>
               </div>
 
               {/* Files Table */}
@@ -914,9 +1102,11 @@ export default function ExperimentDetailPage() {
                         </select>
                       </TableCell>
                       <TableCell className="text-center">
-                        <Button variant="outline" size="sm">
-                          <Download className="w-4 h-4" />
-                        </Button>
+                        <Tooltip content="Not Yet Built" side="bottom">
+                          <Button variant="outline" size="sm">
+                            <Download className="w-4 h-4" />
+                          </Button>
+                        </Tooltip>
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -934,9 +1124,11 @@ export default function ExperimentDetailPage() {
                         </select>
                       </TableCell>
                       <TableCell className="text-center">
-                        <Button variant="outline" size="sm">
-                          <Download className="w-4 h-4" />
-                        </Button>
+                        <Tooltip content="Not Yet Built" side="bottom">
+                          <Button variant="outline" size="sm">
+                            <Download className="w-4 h-4" />
+                          </Button>
+                        </Tooltip>
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -954,9 +1146,11 @@ export default function ExperimentDetailPage() {
                         </select>
                       </TableCell>
                       <TableCell className="text-center">
-                        <Button variant="outline" size="sm">
-                          <Download className="w-4 h-4" />
-                        </Button>
+                        <Tooltip content="Not Yet Built" side="bottom">
+                          <Button variant="outline" size="sm">
+                            <Download className="w-4 h-4" />
+                          </Button>
+                        </Tooltip>
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -974,9 +1168,11 @@ export default function ExperimentDetailPage() {
                         </select>
                       </TableCell>
                       <TableCell className="text-center">
-                        <Button variant="outline" size="sm">
-                          <Download className="w-4 h-4" />
-                        </Button>
+                        <Tooltip content="Not Yet Built" side="bottom">
+                          <Button variant="outline" size="sm">
+                            <Download className="w-4 h-4" />
+                          </Button>
+                        </Tooltip>
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -994,9 +1190,11 @@ export default function ExperimentDetailPage() {
                         </select>
                       </TableCell>
                       <TableCell className="text-center">
-                        <Button variant="outline" size="sm">
-                          <Download className="w-4 h-4" />
-                        </Button>
+                        <Tooltip content="Not Yet Built" side="bottom">
+                          <Button variant="outline" size="sm">
+                            <Download className="w-4 h-4" />
+                          </Button>
+                        </Tooltip>
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -1014,9 +1212,11 @@ export default function ExperimentDetailPage() {
                         </select>
                       </TableCell>
                       <TableCell className="text-center">
-                        <Button variant="outline" size="sm">
-                          <Download className="w-4 h-4" />
-                        </Button>
+                        <Tooltip content="Not Yet Built" side="bottom">
+                          <Button variant="outline" size="sm">
+                            <Download className="w-4 h-4" />
+                          </Button>
+                        </Tooltip>
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -1034,9 +1234,11 @@ export default function ExperimentDetailPage() {
                         </select>
                       </TableCell>
                       <TableCell className="text-center">
-                        <Button variant="outline" size="sm">
-                          <Download className="w-4 h-4" />
-                        </Button>
+                        <Tooltip content="Not Yet Built" side="bottom">
+                          <Button variant="outline" size="sm">
+                            <Download className="w-4 h-4" />
+                          </Button>
+                        </Tooltip>
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -1054,9 +1256,11 @@ export default function ExperimentDetailPage() {
                         </select>
                       </TableCell>
                       <TableCell className="text-center">
-                        <Button variant="outline" size="sm">
-                          <Download className="w-4 h-4" />
-                        </Button>
+                        <Tooltip content="Not Yet Built" side="bottom">
+                          <Button variant="outline" size="sm">
+                            <Download className="w-4 h-4" />
+                          </Button>
+                        </Tooltip>
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -1074,9 +1278,11 @@ export default function ExperimentDetailPage() {
                         </select>
                       </TableCell>
                       <TableCell className="text-center">
-                        <Button variant="outline" size="sm">
-                          <Download className="w-4 h-4" />
-                        </Button>
+                        <Tooltip content="Not Yet Built" side="bottom">
+                          <Button variant="outline" size="sm">
+                            <Download className="w-4 h-4" />
+                          </Button>
+                        </Tooltip>
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -1094,9 +1300,11 @@ export default function ExperimentDetailPage() {
                         </select>
                       </TableCell>
                       <TableCell className="text-center">
-                        <Button variant="outline" size="sm">
-                          <Download className="w-4 h-4" />
-                        </Button>
+                        <Tooltip content="Not Yet Built" side="bottom">
+                          <Button variant="outline" size="sm">
+                            <Download className="w-4 h-4" />
+                          </Button>
+                        </Tooltip>
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -1118,17 +1326,21 @@ export default function ExperimentDetailPage() {
             <div className="flex flex-col gap-6">
               <div className="flex items-center justify-between">
                 <h3 className="text-2xl font-semibold text-foreground pt-2">Attachments</h3>
-                <Button variant="outline" size="sm">
-                  Upload
-                </Button>
+                <Tooltip content="Not Yet Built" side="bottom">
+                  <Button variant="outline" size="sm">
+                    Upload
+                  </Button>
+                </Tooltip>
               </div>
 
               <div className="flex flex-wrap gap-2">
                 <Card className="w-[260px] relative overflow-hidden">
                   <div className="bg-gray-300 border-b h-[200px]" />
-                  <Button variant="outline" size="sm" className="absolute top-2 right-2">
-                    <Download className="w-4 h-4" />
-                  </Button>
+                  <Tooltip content="Not Yet Built" side="bottom">
+                    <Button variant="outline" size="sm" className="absolute top-2 right-2">
+                      <Download className="w-4 h-4" />
+                    </Button>
+                  </Tooltip>
                   <CardHeader className="px-6 py-0 pt-6">
                     <CardTitle className="text-base font-semibold">file</CardTitle>
                     <CardDescription className="text-sm">120 MB</CardDescription>
@@ -1139,9 +1351,11 @@ export default function ExperimentDetailPage() {
 
                 <Card className="w-[260px] relative overflow-hidden">
                   <div className="bg-gray-300 border-b h-[200px]" />
-                  <Button variant="outline" size="sm" className="absolute top-2 right-2">
-                    <Download className="w-4 h-4" />
-                  </Button>
+                  <Tooltip content="Not Yet Built" side="bottom">
+                    <Button variant="outline" size="sm" className="absolute top-2 right-2">
+                      <Download className="w-4 h-4" />
+                    </Button>
+                  </Tooltip>
                   <CardHeader className="px-6 py-0 pt-6">
                     <CardTitle className="text-base font-semibold">file</CardTitle>
                     <CardDescription className="text-sm">120 MB</CardDescription>
@@ -1152,9 +1366,11 @@ export default function ExperimentDetailPage() {
 
                 <Card className="w-[260px] relative overflow-hidden">
                   <div className="bg-gray-300 border-b h-[200px]" />
-                  <Button variant="outline" size="sm" className="absolute top-2 right-2">
-                    <Download className="w-4 h-4" />
-                  </Button>
+                  <Tooltip content="Not Yet Built" side="bottom">
+                    <Button variant="outline" size="sm" className="absolute top-2 right-2">
+                      <Download className="w-4 h-4" />
+                    </Button>
+                  </Tooltip>
                   <CardHeader className="px-6 py-0 pt-6">
                     <CardTitle className="text-base font-semibold leading-tight">20250506_Multiplex_Buffer_83_95.jmp</CardTitle>
                     <CardDescription className="text-sm">120 MB</CardDescription>
@@ -1165,9 +1381,11 @@ export default function ExperimentDetailPage() {
 
                 <Card className="w-[260px] relative overflow-hidden">
                   <div className="bg-gray-300 border-b h-[200px]" />
-                  <Button variant="outline" size="sm" className="absolute top-2 right-2">
-                    <Download className="w-4 h-4" />
-                  </Button>
+                  <Tooltip content="Not Yet Built" side="bottom">
+                    <Button variant="outline" size="sm" className="absolute top-2 right-2">
+                      <Download className="w-4 h-4" />
+                    </Button>
+                  </Tooltip>
                   <CardHeader className="px-6 py-0 pt-6">
                     <CardTitle className="text-base font-semibold leading-tight">20250506_Multiplex_Buffer_83_95_Ct.jmp</CardTitle>
                     <CardDescription className="text-sm">120 MB</CardDescription>
@@ -1197,24 +1415,6 @@ export default function ExperimentDetailPage() {
         {/* Visualizations - Full Width Section */}
         {activeTab === "visualizations" && (
           <div className="w-full px-8 flex flex-col gap-8">
-            {/* Filter Section */}
-            <div className="flex items-center justify-between w-full">
-              <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm">
-                  <span className="text-xs">Filter</span>
-                </Button>
-                <Badge variant="secondary" className="gap-1">
-                  <span className="text-xs">Oscar</span>
-                </Badge>
-                <Badge variant="secondary" className="gap-1">
-                  <span className="text-xs">Strep A</span>
-                </Badge>
-              </div>
-              <select className="text-xs border border-input rounded-md px-3 py-2 h-9 bg-background">
-                <option>Fluorescence Curves</option>
-              </select>
-            </div>
-
             {/* Visualization Cards Grid - First Row */}
             <div className="flex gap-8 w-full">
               <div className="flex-1 bg-white border border-slate-200 rounded-lg p-4 flex flex-col gap-4">
@@ -1286,17 +1486,21 @@ export default function ExperimentDetailPage() {
             <div className="flex flex-col gap-6">
               <div className="flex items-center justify-between">
                 <h3 className="text-2xl font-semibold text-foreground pt-2">Attachments</h3>
-                <Button variant="outline" size="sm">
-                  Upload
-                </Button>
+                <Tooltip content="Not Yet Built" side="bottom">
+                  <Button variant="outline" size="sm">
+                    Upload
+                  </Button>
+                </Tooltip>
               </div>
 
               <div className="flex gap-2">
                 <Card className="w-[260px] relative overflow-hidden">
                   <div className="bg-gray-300 border-b h-[200px]" />
-                  <Button variant="outline" size="sm" className="absolute top-2 right-2">
-                    <Download className="w-4 h-4" />
-                  </Button>
+                  <Tooltip content="Not Yet Built" side="bottom">
+                    <Button variant="outline" size="sm" className="absolute top-2 right-2">
+                      <Download className="w-4 h-4" />
+                    </Button>
+                  </Tooltip>
                   <CardHeader className="px-6 py-0 pt-6">
                     <CardTitle className="text-base font-semibold">file</CardTitle>
                     <CardDescription className="text-sm">120 MB</CardDescription>
@@ -1307,9 +1511,11 @@ export default function ExperimentDetailPage() {
 
                 <Card className="w-[260px] relative overflow-hidden">
                   <div className="bg-gray-300 border-b h-[200px]" />
-                  <Button variant="outline" size="sm" className="absolute top-2 right-2">
-                    <Download className="w-4 h-4" />
-                  </Button>
+                  <Tooltip content="Not Yet Built" side="bottom">
+                    <Button variant="outline" size="sm" className="absolute top-2 right-2">
+                      <Download className="w-4 h-4" />
+                    </Button>
+                  </Tooltip>
                   <CardHeader className="px-6 py-0 pt-6">
                     <CardTitle className="text-base font-semibold">file</CardTitle>
                     <CardDescription className="text-sm">120 MB</CardDescription>

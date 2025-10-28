@@ -117,7 +117,7 @@ export function TagInput({
         {tags.map((tag) => (
           <div
             key={tag.id}
-            className="bg-slate-100 border border-slate-300 rounded-md px-2 py-0.5 flex items-center gap-1"
+            className="bg-slate-100 border border-slate-300 rounded-md px-2 py-0.5 flex items-center gap-1 whitespace-nowrap"
           >
             <span className="text-xs font-semibold text-foreground">{tag.label}</span>
             {tag.count !== undefined && (
@@ -130,7 +130,7 @@ export function TagInput({
                 e.stopPropagation();
                 removeTag(tag.id);
               }}
-              className="ml-1 hover:bg-slate-200 rounded-sm p-0.5"
+              className="ml-1 hover:bg-slate-200 rounded-sm p-0.5 shrink-0"
             >
               <X className="w-3 h-3" />
             </button>

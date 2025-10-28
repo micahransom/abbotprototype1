@@ -432,7 +432,7 @@ export default function ExperimentsPage() {
                 filteredAndSortedExperiments.map((exp) => (
                   <TableRow
                     key={exp.id}
-                    onClick={() => router.push(`/experiments/${exp.title}`)}
+                    onClick={() => router.push('/experiments/20250814_NEAR.XML.Evaluation_CR')}
                     className="cursor-pointer"
                   >
                     <TableCell className="font-medium">{exp.title}</TableCell>

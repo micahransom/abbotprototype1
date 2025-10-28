@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useMemo, useRef } from "react";
-import { History, Download, Upload, Save, CircleUser, ChevronDown } from "lucide-react";
+import { useState, useMemo, useRef } from "react";
+import { History, Download, Upload, Save, CircleUser } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -42,8 +42,6 @@ interface TableRowData {
   unit: string;
   lotNumber: string;
 }
-
-const concentrationUnits = ["X", "mM", "%", "ng", "μM", "mg/mL", "μg/mL"];
 
 export default function NewExperimentPage() {
   const [activeTab, setActiveTab] = useState<TabType>("conditions");
@@ -113,22 +111,10 @@ export default function NewExperimentPage() {
     return allIngredients.sort((a, b) => a.label.localeCompare(b.label));
   }, []);
   
-  // Table data for Cartridge
-  const [cartridgeRows, setCartridgeRows] = useState<TableRowData[]>([
-    { id: "cart-1", ingredients: [], concentration: "", unit: "mM", lotNumber: "" },
-    { id: "cart-2", ingredients: [], concentration: "", unit: "mM", lotNumber: "" },
-    { id: "cart-3", ingredients: [], concentration: "", unit: "mM", lotNumber: "" },
+  // Table data for Materials (formerly Cartridge)
+  const [materialsRows, setMaterialsRows] = useState<TableRowData[]>([
+    { id: "mat-1", ingredients: [], concentration: "", unit: "mM", lotNumber: "" },
   ]);
-
-  // Table data for Sample Prep
-  const [samplePrepRows, setSamplePrepRows] = useState<TableRowData[]>([
-    { id: "prep-1", ingredients: [], concentration: "", unit: "mM", lotNumber: "" },
-    { id: "prep-2", ingredients: [], concentration: "", unit: "mM", lotNumber: "" },
-    { id: "prep-3", ingredients: [], concentration: "", unit: "mM", lotNumber: "" },
-  ]);
-
-  // Track which unit dropdown is open
-  const [openUnitDropdown, setOpenUnitDropdown] = useState<string | null>(null);
 
   // Helper function to check if a row is empty
   const isRowEmpty = (row: TableRowData) => {
@@ -136,107 +122,41 @@ export default function NewExperimentPage() {
   };
 
   // Helper function to add a new row if the last row has data
-  const addNewRowIfNeeded = (section: 'cartridge' | 'samplePrep', rows: TableRowData[]) => {
+  const addNewRowIfNeeded = (rows: TableRowData[]) => {
     const lastRow = rows[rows.length - 1];
     if (!isRowEmpty(lastRow)) {
       rowIdCounter.current += 1;
-      const newId = section === 'cartridge' 
-        ? `cart-${rowIdCounter.current}` 
-        : `prep-${rowIdCounter.current}`;
-      return [...rows, { id: newId, ingredients: [], concentration: "", unit: "mM", lotNumber: "" }];
+      return [...rows, { id: `mat-${rowIdCounter.current}`, ingredients: [], concentration: "", unit: "mM", lotNumber: "" }];
     }
     return rows;
   };
 
-  const updateRowIngredients = (section: 'cartridge' | 'samplePrep', rowId: string, tags: Tag[]) => {
-    if (section === 'cartridge') {
-      setCartridgeRows(rows => {
-        const updatedRows = rows.map(row =>
-          row.id === rowId ? { ...row, ingredients: tags } : row
-        );
-        return addNewRowIfNeeded(section, updatedRows);
-      });
-    } else {
-      setSamplePrepRows(rows => {
-        const updatedRows = rows.map(row =>
-          row.id === rowId ? { ...row, ingredients: tags } : row
-        );
-        return addNewRowIfNeeded(section, updatedRows);
-      });
-    }
+  const updateRowIngredients = (rowId: string, tags: Tag[]) => {
+    setMaterialsRows(rows => {
+      const updatedRows = rows.map(row =>
+        row.id === rowId ? { ...row, ingredients: tags } : row
+      );
+      return addNewRowIfNeeded(updatedRows);
+    });
   };
 
-  const updateRowConcentration = (section: 'cartridge' | 'samplePrep', rowId: string, concentration: string) => {
-    if (section === 'cartridge') {
-      setCartridgeRows(rows => {
-        const updatedRows = rows.map(row =>
-          row.id === rowId ? { ...row, concentration } : row
-        );
-        return addNewRowIfNeeded(section, updatedRows);
-      });
-    } else {
-      setSamplePrepRows(rows => {
-        const updatedRows = rows.map(row =>
-          row.id === rowId ? { ...row, concentration } : row
-        );
-        return addNewRowIfNeeded(section, updatedRows);
-      });
-    }
+  const updateRowConcentration = (rowId: string, concentration: string) => {
+    setMaterialsRows(rows => {
+      const updatedRows = rows.map(row =>
+        row.id === rowId ? { ...row, concentration } : row
+      );
+      return addNewRowIfNeeded(updatedRows);
+    });
   };
 
-  const updateRowUnit = (section: 'cartridge' | 'samplePrep', rowId: string, unit: string) => {
-    if (section === 'cartridge') {
-      setCartridgeRows(rows => {
-        const updatedRows = rows.map(row =>
-          row.id === rowId ? { ...row, unit } : row
-        );
-        return addNewRowIfNeeded(section, updatedRows);
-      });
-    } else {
-      setSamplePrepRows(rows => {
-        const updatedRows = rows.map(row =>
-          row.id === rowId ? { ...row, unit } : row
-        );
-        return addNewRowIfNeeded(section, updatedRows);
-      });
-    }
-    setOpenUnitDropdown(null);
+  const updateRowLotNumber = (rowId: string, lotNumber: string) => {
+    setMaterialsRows(rows => {
+      const updatedRows = rows.map(row =>
+        row.id === rowId ? { ...row, lotNumber } : row
+      );
+      return addNewRowIfNeeded(updatedRows);
+    });
   };
-
-  const updateRowLotNumber = (section: 'cartridge' | 'samplePrep', rowId: string, lotNumber: string) => {
-    if (section === 'cartridge') {
-      setCartridgeRows(rows => {
-        const updatedRows = rows.map(row =>
-          row.id === rowId ? { ...row, lotNumber } : row
-        );
-        return addNewRowIfNeeded(section, updatedRows);
-      });
-    } else {
-      setSamplePrepRows(rows => {
-        const updatedRows = rows.map(row =>
-          row.id === rowId ? { ...row, lotNumber } : row
-        );
-        return addNewRowIfNeeded(section, updatedRows);
-      });
-    }
-  };
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = () => {
-      if (openUnitDropdown) {
-        setOpenUnitDropdown(null);
-      }
-    };
-
-    if (openUnitDropdown) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [openUnitDropdown]);
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
@@ -416,15 +336,33 @@ export default function NewExperimentPage() {
             <div className="flex items-center">
               <div className="flex-1 overflow-clip px-px">
                 <div className="flex items-center justify-between">
-                  <div className="flex flex-col gap-1 w-[150px]">
+                  <div className="flex flex-col gap-1 w-[180px]">
                     <div className="flex items-center py-2">
                       <p className="text-base text-muted-foreground">Instrument</p>
                     </div>
                     <div className="flex items-center py-2">
                       <p className="text-base text-muted-foreground">Operators</p>
                     </div>
+                    <div className="flex items-center py-2">
+                      <p className="text-base text-muted-foreground">Cartridge LN</p>
+                    </div>
+                    <div className="flex items-center py-2">
+                      <p className="text-base text-muted-foreground">Buffer Pack</p>
+                    </div>
+                    <div className="flex items-center py-2">
+                      <p className="text-base text-muted-foreground">Lyo Composition</p>
+                    </div>
                   </div>
                   <div className="flex-1 flex flex-col gap-1">
+                    <div className="flex items-center gap-2 h-10 p-2 min-w-[85px]">
+                      <p className="text-sm text-muted-foreground">—</p>
+                    </div>
+                    <div className="flex items-center gap-2 h-10 p-2 min-w-[85px]">
+                      <p className="text-sm text-muted-foreground">—</p>
+                    </div>
+                    <div className="flex items-center gap-2 h-10 p-2 min-w-[85px]">
+                      <p className="text-sm text-muted-foreground">—</p>
+                    </div>
                     <div className="flex items-center gap-2 h-10 p-2 min-w-[85px]">
                       <p className="text-sm text-muted-foreground">—</p>
                     </div>
@@ -437,155 +375,57 @@ export default function NewExperimentPage() {
             </div>
           </div>
 
-          {/* Cartridge Section */}
+          {/* Materials Section */}
           <div className="flex flex-col gap-6">
             <div className="flex items-center justify-between h-10">
-              <h3 className="text-2xl font-semibold text-foreground pt-2">Cartridge</h3>
+              <h3 className="text-2xl font-semibold text-foreground pt-2">Materials</h3>
             </div>
 
-            <div className="bg-white border rounded-lg w-full">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[280px]">Ingredient Name</TableHead>
-                    <TableHead className="w-[240px]">Final Concentration</TableHead>
-                    <TableHead className="w-[200px]">Lot Number (optional)</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {cartridgeRows.map((row) => (
-                    <TableRow key={row.id}>
-                      <TableCell className="w-[280px] align-top">
-                        <TagInput
-                          suggestions={ingredientSuggestions}
-                          selectedTags={row.ingredients}
-                          onTagsChange={(tags) => updateRowIngredients('cartridge', row.id, tags)}
-                          placeholder="Type ingredient..."
-                          allowCreate={true}
-                        />
-                      </TableCell>
-                      <TableCell className="w-[240px] align-top">
-                        <div className="flex items-center justify-between gap-2 py-0.5">
+            <div className="overflow-x-auto">
+              <div className="bg-white border rounded-lg w-full">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-[280px]">Ingredient Name</TableHead>
+                      <TableHead className="w-[240px]">LN#</TableHead>
+                      <TableHead className="w-[200px]">Aliquot</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {materialsRows.map((row) => (
+                      <TableRow key={row.id}>
+                        <TableCell className="w-[280px] align-top">
+                          <TagInput
+                            suggestions={ingredientSuggestions}
+                            selectedTags={row.ingredients}
+                            onTagsChange={(tags) => updateRowIngredients(row.id, tags)}
+                            placeholder="Type ingredient..."
+                            allowCreate={true}
+                          />
+                        </TableCell>
+                        <TableCell className="w-[240px] align-top">
                           <input
                             type="text"
                             value={row.concentration}
-                            onChange={(e) => updateRowConcentration('cartridge', row.id, e.target.value)}
-                            placeholder="0"
-                            className="flex-1 min-w-0 text-sm text-foreground bg-transparent border-none outline-none focus:outline-none"
+                            onChange={(e) => updateRowConcentration(row.id, e.target.value)}
+                            placeholder="LN#"
+                            className="w-full text-sm text-foreground bg-transparent border-none outline-none focus:outline-none py-0.5"
                           />
-                          <div className="relative">
-                            <button
-                              onClick={() => setOpenUnitDropdown(openUnitDropdown === row.id ? null : row.id)}
-                              className="flex items-center gap-1 px-2 py-0.5 text-xs font-semibold text-secondary-foreground bg-secondary border border-transparent rounded-md hover:bg-secondary/80 transition-colors"
-                            >
-                              {row.unit}
-                              <ChevronDown className="w-3 h-3" />
-                            </button>
-                            {openUnitDropdown === row.id && (
-                              <div className="absolute right-0 top-full mt-1 z-10 min-w-[80px] bg-popover border border-border rounded-md shadow-md overflow-hidden">
-                                {concentrationUnits.map((unit) => (
-                                  <button
-                                    key={unit}
-                                    onClick={() => updateRowUnit('cartridge', row.id, unit)}
-                                    className="w-full px-3 py-2 text-xs text-left hover:bg-accent hover:text-accent-foreground transition-colors"
-                                  >
-                                    {unit}
-                                  </button>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell className="w-[200px] align-top">
-                        <input
-                          type="text"
-                          value={row.lotNumber}
-                          onChange={(e) => updateRowLotNumber('cartridge', row.id, e.target.value)}
-                          placeholder="Optional..."
-                          className="w-full text-sm text-foreground bg-transparent border-none outline-none focus:outline-none py-0.5"
-                        />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-          </div>
-
-          {/* Sample Prep Section */}
-          <div className="flex flex-col gap-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-2xl font-semibold text-foreground pt-2">Sample Prep</h3>
-            </div>
-
-            <div className="bg-white border rounded-lg w-full">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[280px]">Ingredient Name</TableHead>
-                    <TableHead className="w-[240px]">Final Concentration</TableHead>
-                    <TableHead className="w-[200px]">Lot Number (optional)</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {samplePrepRows.map((row) => (
-                    <TableRow key={row.id}>
-                      <TableCell className="w-[280px] align-top">
-                        <TagInput
-                          suggestions={ingredientSuggestions}
-                          selectedTags={row.ingredients}
-                          onTagsChange={(tags) => updateRowIngredients('samplePrep', row.id, tags)}
-                          placeholder="Type ingredient..."
-                          allowCreate={true}
-                        />
-                      </TableCell>
-                      <TableCell className="w-[240px] align-top">
-                        <div className="flex items-center justify-between gap-2 py-0.5">
+                        </TableCell>
+                        <TableCell className="w-[200px] align-top">
                           <input
                             type="text"
-                            value={row.concentration}
-                            onChange={(e) => updateRowConcentration('samplePrep', row.id, e.target.value)}
-                            placeholder="0"
-                            className="flex-1 min-w-0 text-sm text-foreground bg-transparent border-none outline-none focus:outline-none"
+                            value={row.lotNumber}
+                            onChange={(e) => updateRowLotNumber(row.id, e.target.value)}
+                            placeholder="Aliquot..."
+                            className="w-full text-sm text-foreground bg-transparent border-none outline-none focus:outline-none py-0.5"
                           />
-                          <div className="relative">
-                            <button
-                              onClick={() => setOpenUnitDropdown(openUnitDropdown === row.id ? null : row.id)}
-                              className="flex items-center gap-1 px-2 py-0.5 text-xs font-semibold text-secondary-foreground bg-secondary border border-transparent rounded-md hover:bg-secondary/80 transition-colors"
-                            >
-                              {row.unit}
-                              <ChevronDown className="w-3 h-3" />
-                            </button>
-                            {openUnitDropdown === row.id && (
-                              <div className="absolute right-0 top-full mt-1 z-10 min-w-[80px] bg-popover border border-border rounded-md shadow-md overflow-hidden">
-                                {concentrationUnits.map((unit) => (
-                                  <button
-                                    key={unit}
-                                    onClick={() => updateRowUnit('samplePrep', row.id, unit)}
-                                    className="w-full px-3 py-2 text-xs text-left hover:bg-accent hover:text-accent-foreground transition-colors"
-                                  >
-                                    {unit}
-                                  </button>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell className="w-[200px] align-top">
-                        <input
-                          type="text"
-                          value={row.lotNumber}
-                          onChange={(e) => updateRowLotNumber('samplePrep', row.id, e.target.value)}
-                          placeholder="Optional..."
-                          className="w-full text-sm text-foreground bg-transparent border-none outline-none focus:outline-none py-0.5"
-                        />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
             </div>
           </div>
 
@@ -593,9 +433,11 @@ export default function NewExperimentPage() {
           <div className="flex flex-col gap-6">
             <div className="flex items-center justify-between">
               <h3 className="text-2xl font-semibold text-foreground pt-2">Attachments</h3>
-              <Button variant="outline" size="sm">
-                Upload
-              </Button>
+              <Tooltip content="Not Yet Built" side="bottom">
+                <Button variant="outline" size="sm">
+                  Upload
+                </Button>
+              </Tooltip>
             </div>
             <p className="text-sm text-muted-foreground">No attachments yet.</p>
           </div>
@@ -630,10 +472,12 @@ export default function NewExperimentPage() {
           <div className="w-full px-8 flex flex-col gap-8">
             {/* Action Buttons */}
             <div className="flex items-center justify-between w-full">
-              <Button variant="outline" size="sm">
-                <Download className="w-4 h-4 mr-2" />
-                Download
-              </Button>
+              <Tooltip content="Not Yet Built" side="bottom">
+                <Button variant="outline" size="sm">
+                  <Download className="w-4 h-4 mr-2" />
+                  Download
+                </Button>
+              </Tooltip>
             </div>
 
             {/* Test Tracking Table */}
@@ -641,32 +485,54 @@ export default function NewExperimentPage() {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-accent">
-                    <TableHead className="text-center font-medium text-foreground">Test Date</TableHead>
-                    <TableHead className="text-center font-medium text-foreground">Sample ID</TableHead>
-                    <TableHead className="text-center font-medium text-foreground">Sample Description</TableHead>
-                    <TableHead className="text-center font-medium text-foreground">Cartridge Lot #</TableHead>
-                    <TableHead className="text-center font-medium text-foreground">PCR MM Lyo Lot #</TableHead>
-                    <TableHead className="text-center font-medium text-foreground">IC Lot #</TableHead>
-                    <TableHead className="text-center font-medium text-foreground">XML</TableHead>
-                    <TableHead className="text-center font-medium text-foreground">Pass through filter</TableHead>
-                    <TableHead className="text-center font-medium text-foreground">Load Volume (uL)</TableHead>
-                    <TableHead className="text-center font-medium text-foreground">Instrument Serial #</TableHead>
-                    <TableHead className="text-center font-medium text-foreground">Target Amount</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[120px]">Test Date</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[80px]">Samples</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[120px]">Sample ID</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[150px]">Sample Description</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[120px]">Cartridge Lot #</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[150px]">PCR MM Lyo Lot #</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[100px]">IC Lot #</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[100px]">XML</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[120px]">Pass through filter</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[130px]">Load Volume (uL)</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[150px]">Instrument Serial #</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[120px]">Target Amount</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[80px]">IC</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[80px]">cRNA</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[120px]">Target Matrix</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[100px]">Operator</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[120px]">COVID (Orangeboy)</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[120px]">PSA (Orangeboy)</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[100px]">ATTOM 16s</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[120px]">Quasar 670(s)</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[100px]">Fuji RSV</TableHead>
+                    <TableHead className="text-center font-medium text-foreground min-w-[300px]">Note</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
+                    <TableCell className="min-w-[120px]"></TableCell>
+                    <TableCell className="min-w-[80px]"></TableCell>
+                    <TableCell className="min-w-[120px]"></TableCell>
+                    <TableCell className="min-w-[150px]"></TableCell>
+                    <TableCell className="min-w-[120px]"></TableCell>
+                    <TableCell className="min-w-[150px]"></TableCell>
+                    <TableCell className="min-w-[100px]"></TableCell>
+                    <TableCell className="min-w-[100px]"></TableCell>
+                    <TableCell className="min-w-[120px]"></TableCell>
+                    <TableCell className="min-w-[130px]"></TableCell>
+                    <TableCell className="min-w-[150px]"></TableCell>
+                    <TableCell className="min-w-[120px]"></TableCell>
+                    <TableCell className="min-w-[80px]"></TableCell>
+                    <TableCell className="min-w-[80px]"></TableCell>
+                    <TableCell className="min-w-[120px]"></TableCell>
+                    <TableCell className="min-w-[100px]"></TableCell>
+                    <TableCell className="min-w-[120px]"></TableCell>
+                    <TableCell className="min-w-[120px]"></TableCell>
+                    <TableCell className="min-w-[100px]"></TableCell>
+                    <TableCell className="min-w-[120px]"></TableCell>
+                    <TableCell className="min-w-[100px]"></TableCell>
+                    <TableCell className="min-w-[300px]"></TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
@@ -676,9 +542,11 @@ export default function NewExperimentPage() {
             <div className="flex flex-col gap-6 mt-8">
               <div className="flex items-center justify-between">
                 <h3 className="text-2xl font-semibold text-foreground pt-2">Files</h3>
-                <Button variant="outline" size="sm">
-                  Upload
-                </Button>
+                <Tooltip content="Not Yet Built" side="bottom">
+                  <Button variant="outline" size="sm">
+                    Upload
+                  </Button>
+                </Tooltip>
               </div>
 
               {/* Files Table */}
@@ -712,9 +580,11 @@ export default function NewExperimentPage() {
             <div className="flex flex-col gap-6">
               <div className="flex items-center justify-between">
                 <h3 className="text-2xl font-semibold text-foreground pt-2">Attachments</h3>
-                <Button variant="outline" size="sm">
-                  Upload
-                </Button>
+                <Tooltip content="Not Yet Built" side="bottom">
+                  <Button variant="outline" size="sm">
+                    Upload
+                  </Button>
+                </Tooltip>
               </div>
               <p className="text-sm text-muted-foreground">No attachments yet.</p>
             </div>
@@ -724,18 +594,6 @@ export default function NewExperimentPage() {
         {/* Visualizations - Full Width Section */}
         {activeTab === "visualizations" && (
           <div className="w-full px-8 flex flex-col gap-8">
-            {/* Filter Section */}
-            <div className="flex items-center justify-between w-full">
-              <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm">
-                  <span className="text-xs">Filter</span>
-                </Button>
-              </div>
-              <select className="text-xs border border-input rounded-md px-3 py-2 h-9 bg-background">
-                <option>Fluorescence Curves</option>
-              </select>
-            </div>
-
             {/* Empty visualization message */}
             <div className="w-full py-16 flex items-center justify-center">
               <p className="text-muted-foreground">No visualizations available yet.</p>
@@ -749,9 +607,11 @@ export default function NewExperimentPage() {
             <div className="flex flex-col gap-6">
               <div className="flex items-center justify-between">
                 <h3 className="text-2xl font-semibold text-foreground pt-2">Attachments</h3>
-                <Button variant="outline" size="sm">
-                  Upload
-                </Button>
+                <Tooltip content="Not Yet Built" side="bottom">
+                  <Button variant="outline" size="sm">
+                    Upload
+                  </Button>
+                </Tooltip>
               </div>
               <p className="text-sm text-muted-foreground">No attachments yet.</p>
             </div>

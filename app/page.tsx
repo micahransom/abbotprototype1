@@ -10,7 +10,7 @@ import Link from "next/link";
 
 const experiments = [
   {
-    title: "MV STI Primer Screening",
+    title: "20250814_NEAR.XML.Evaluation_CR",
     editedDays: 4,
     status: "inProgress" as const,
     link: "/experiments/20250814_NEAR.XML.Evaluation_CR",
@@ -19,19 +19,19 @@ const experiments = [
     title: "Combo Testing w Target",
     editedDays: 5,
     status: "inProgress" as const,
-    link: null,
+    link: "/experiments/20250814_NEAR.XML.Evaluation_CR",
   },
   {
     title: "TTR RT and ID Time and Temp",
     editedDays: 8,
     status: "completed" as const,
-    link: null,
+    link: "/experiments/20250814_NEAR.XML.Evaluation_CR",
   },
   {
     title: "NEARLyoyoQC_KS",
     editedDays: 8,
     status: "completed" as const,
-    link: null,
+    link: "/experiments/20250814_NEAR.XML.Evaluation_CR",
   },
 ];
 
